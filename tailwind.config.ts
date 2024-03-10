@@ -10,6 +10,10 @@ const config = {
 	],
   prefix: "",
   theme: {
+    colors: {
+      'background-color': '#F7F1E8',
+      'domin-color': '#7A7D62'
+    },
     container: {
       center: true,
       padding: "2rem",

@@ -1,17 +1,8 @@
 "use client";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from "@/components/ui/navigation-menu";
-import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
+import { Bebas_Neue, Montserrat } from "next/font/google";
+import { buttonVariants } from "@/components/ui/button"
 import Link from "next/link";
-import { Bebas_Neue } from "next/font/google";
+
 
 const bebasNeuneScripts = Bebas_Neue({
   subsets: ["latin"],
@@ -19,38 +10,36 @@ const bebasNeuneScripts = Bebas_Neue({
   variable: "--font-bebas-neue",
 });
 
+const montserrat = Montserrat({
+  subsets: ["latin"],
+});
+
+const fontStyle = bebasNeuneScripts.className;
+
 export default function Navbar() {
   return (
-    <NavigationMenu>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className={bebasNeuneScripts.className} >
-              Cairano.EU
-            </NavigationMenuLink>
-          </Link>
-
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              ItemMenu1
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              ItemMenu2
-            </NavigationMenuLink>
-          </Link>
-          <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              ItemMenu3
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <nav className=" bg-background-color">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <Link className={`flex items-center space-x-3 rtl:space-x-reverse ${fontStyle} ${buttonVariants({ variant: "link" })}`} href="/">
+          <span className="self-center text-5xl">
+            Cairano
+            <span className="text-domin-color">.EU</span>
+            </span>
+        </Link>
+        <div className="hidden w-full md:block md:w-auto">
+          <ul className="font-medium flex flex-row p-4 md:p-0 mt-4">
+            <li>
+              <Link href={"/"} className={ `text-base font-semibold block py-2 px-3 ${montserrat.className} ${buttonVariants({ variant: "link" })}`}>MENU ITEM 1</Link>
+              </li>
+            <li>
+              <Link href={"/"} className={ `text-base font-semibold block py-2 px-3 ${montserrat.className} ${buttonVariants({ variant: "link" })}`}>MENU ITEM 2</Link>
+              </li>
+            <li>
+              <Link href={"/"} className={ `text-base font-semibold block py-2 px-3 ${montserrat.className} ${buttonVariants({ variant: "link" })}`}>MENU ITEM 3</Link>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   );
 }
