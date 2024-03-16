@@ -8,7 +8,6 @@ import {
 
 import { Raleway, Great_Vibes } from "next/font/google";
 import Image from "next/image";
-import SearchBar from "./SearchBar";
 
 const greatVibes = Great_Vibes({
   subsets: ["latin"],
@@ -58,8 +57,6 @@ const MainCard = () => {
           />
         </CardContent>
       </Card>
-
-      <SearchBar></SearchBar>
     </>
   );
 };
