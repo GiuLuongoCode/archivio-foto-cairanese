@@ -2,6 +2,7 @@ import MainCard from "@/components/MainCard";
 import Navbar from "@/components/Navbar";
 import SearchBar from "@/components/SearchBar";
 import { Gallery } from "@/components/GalleryLight";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <MainCard></MainCard>
       <SearchBar></SearchBar>
       <Gallery></Gallery>
+      <Footer></Footer>
     </div>
   );
 }
