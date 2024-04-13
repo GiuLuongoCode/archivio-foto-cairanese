@@ -88,7 +88,7 @@ export function Gallery() {
           );
         })}
       </LightGallery>
-      <button onClick={loadMoreImages}>Load More</button>
+      <button className="border-solid border-2 border-gray-300 p-2 hover:bg-gray-500" onClick={loadMoreImages}>Load More</button>
     </div>
   );
 }
