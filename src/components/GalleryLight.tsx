@@ -18,7 +18,9 @@ import lgShare from "lightgallery/plugins/share";
 import lgRotate from "lightgallery/plugins/rotate";
 // Infinite scroll
 // import { useInView } from "react-intersection-observer";
-import { useState } from "react";
+import { Key } from "react";
+import { gql } from "graphql-tag";
+import { getClient } from "@/graphql/apolloClient";
 
 const initImages = [
   { src: "/1.jpg", alt: "Flag of India" },
@@ -44,10 +46,31 @@ const secondImages = [
   { src: "/19.jpg", alt: "19" },
 ];
 
-export function Gallery() {
+const SEARCH_IMAGES = gql`
+  query SearchImages($query: String, $tags: [String]) {
+    searchImages(query: $query, tags: $tags) {
+      id
+      name
+      descriptio
+      url
+    }
+  }
+`;
+
+export async function Gallery() {
   // infinte scroll
   //   const { ref, inView } = useInView();
-  const [images, setImages] = useState(initImages);
+
+  const client = getClient();
+  const {data} = await client.query({
+    query: SEARCH_IMAGES,
+  });
+
+  console.log(data.searchImages);
+
+  // const {loading, error, data} = useQuery(SEARCH_IMAGES, {
+  //   variables: { query: "Giuseppe" },
+  // });
   const onInit = () => {
     console.log("lightGallery has been initialized");
   };
@@ -59,9 +82,10 @@ export function Gallery() {
   //     }
   //   }, [inView]);
 
-  const loadMoreImages = () => {
-    setImages([...images, ...secondImages]);
-  };
+  // const loadMoreImages = () => {
+  //   setImages([...images, ...secondImages]);
+  // };
+
   return (
     <div className="grid grid-cols-1 gap-3">
       <LightGallery
@@ -76,19 +100,19 @@ export function Gallery() {
           lgShare,
         ]}
       >
-        {images.map((image, index) => {
+        {data?.searchImages?.map((photo: { url: string | undefined; id: Key | null | undefined; name: string | undefined; }) => {
           return (
-            <a href={image.src} key={index}>
+            <a href={photo.url} key={photo.id}>
               <img
-                alt={image.alt}
-                src={image.src}
+                alt={photo.name}
+                src={photo.url}
                 className="max-w-full block py-5 px-0 rounded-lg transition-transform duration-200 hover:filter hover:opacity-90 hover:scale-101"
               />
             </a>
           );
         })}
       </LightGallery>
-      <button className="border-solid border-2 border-gray-300 p-2 hover:bg-gray-500" onClick={loadMoreImages}>Load More</button>
+      <button className="border-solid border-2 border-gray-300 p-2 hover:bg-gray-500">Load More</button>
     </div>
   );
 }
