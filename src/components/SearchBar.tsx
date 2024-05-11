@@ -18,9 +18,9 @@ const SearchBar = () => {
           </Button>
         </Link>
       </div>
-      <div className="flex flex-row px-14 py-1">
-        <Button variant="outline">Parola chiave</Button>
-        <Button variant="outline">Categoria</Button>
+      <div className="flex flex-row py-1">
+        <Button variant="outline" className="mr-2">Parola chiave</Button>
+        <Button variant="outline" className="mr-2">Categoria</Button>
         <Button variant="outline">Nome tag</Button>
       </div>
     </>
