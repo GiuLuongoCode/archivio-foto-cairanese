@@ -18,8 +18,8 @@ const fontStyle = bebasNeuneScripts.className;
 
 export default function Navbar() {
   return (
-    <nav className=" bg-background-color">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav className="bg-background-color">
+      <div className="flex items-center justify-between px-0 md:px-4 pt-2">
         <Link className={`flex items-center space-x-3 rtl:space-x-reverse ${fontStyle} ${buttonVariants({ variant: "link" })}`} href="/">
           <span className="self-center text-5xl">
             Cairano
