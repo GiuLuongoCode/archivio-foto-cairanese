@@ -11,17 +11,18 @@ const Reactions = ({ photoId } : {
 }) => {
 
     const REACTION_MUTATION = gql`
-    mutation AddReaction($imageId: ID!, $reactionName: String!) {
-        createImageReaction(imageId: $imageId, reactionName: $reactionName) {
-            image {
-                id
-                name
-                reactions {
-                    name
-                } 
-            }
-            success
+    mutation createImageReaction($imageId: Int!, $reactionName: String!) {
+      createImageReaction(imageId: $imageId, reactionName: $reactionName) {
+        image {
+          id
+          name
+          reactions {
+            name
+            number
+          }
         }
+        success
+      }
     }
   `;
 

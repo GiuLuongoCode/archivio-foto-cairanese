@@ -1,6 +1,6 @@
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 
 export const apolloClient =  new ApolloClient({
-    uri: "https://graphql-pokeapi.graphcdn.app/",
+    uri: "http://127.0.0.1:8000/graphql",
     cache: new InMemoryCache()
 });

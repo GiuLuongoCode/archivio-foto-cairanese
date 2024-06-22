@@ -30,20 +30,45 @@ export default function Gallery({ search }: Props) {
         query SearchImages($search: String, $tags: [String], $limit: Int, $offset: Int) {
         searchImages(query: $search, tags: $tags, limit: $limit, offset: $offset) {
             count,
-            retults {
+            images {
                 id
                 name
-                descriptio
+                description
                 url
             }
         }
         }
     `;
 
+    const SEARCH_IMAGES = gql`
+        query SearchImages($limit: Int, $offset: Int) {
+        searchImages(limit: $limit, offset: $offset) {
+            count,
+            images {
+                id
+                name
+                description
+                url
+                reactions {
+                  name
+                  number
+                }
+                tags {
+                  name
+                }
+                people {
+                  name
+                }
+                views
+                likes
+            }
+        }
+        }
+    `;
 
-    const GET_POKEMONS = gql`
-    query GetPokemons($limit: Int, $offset: Int) {
-      pokemons(limit: $limit, offset: $offset) {
+    const GET_searchImages = gql`
+    query GetsearchImages($limit: Int, $offset: Int) {
+      searchImages(limit: $limit, offset: $offset) {
         count
         results {
           url
@@ -96,7 +121,7 @@ export default function Gallery({ search }: Props) {
 
     useEffect(() => {
         const observableQuery = apolloClient.watchQuery({
-            query: search !== undefined ? GET_POKEMON_FILTERED : GET_POKEMONS,
+            query: search !== undefined ? SEARCH_IMAGES_FILTERED : SEARCH_IMAGES,
             variables: search !== undefined ? {
             name: search
         } : { 
@@ -106,10 +131,11 @@ export default function Gallery({ search }: Props) {
 
         const subscription = observableQuery.subscribe({
         next(result) {
-            setData(search !== undefined ? result.data.pokemon : result.data.pokemons)
+            setData(search !== undefined ? result.data.searchImages : result.data.searchImages)
             setLoading(false)        
             if(search == undefined) {
-                setHasMore(result.data.pokemons.results.length < result.data.pokemons.count ? true : false)
+              console.log(result)
+                setHasMore(result.data.searchImages.images.length < result.data.searchImages.count ? true : false)
             }
             
         },
@@ -139,21 +165,21 @@ export default function Gallery({ search }: Props) {
 
         updateQuery: (prevResult: any, { fetchMoreResult }: any) => {
           if (!fetchMoreResult) return prevResult
-            setHasMore(prevResult.pokemons.results.length < fetchMoreResult.pokemons.count ? true : false)
+            setHasMore(prevResult.searchImages.images.length < fetchMoreResult.searchImages.count ? true : false)
 
             return {
-                pokemons: {
-                    count: fetchMoreResult.pokemons.count,
+                searchImages: {
+                    count: fetchMoreResult.searchImages.count,
                     results: [
-                        ...prevResult.pokemons.results,
-                        ...fetchMoreResult.pokemons.results,
+                        ...prevResult.searchImages.image,
+                        ...fetchMoreResult.searchImages.images,
                     ],
             },
           };
         },
       })
-      .then((pokemons: any) => {
-        setData(pokemons.results)
+      .then((searchImages: any) => {
+        setData(searchImages.image)
         setLoading(false);
       })
       .catch((err: any) => {
@@ -182,8 +208,8 @@ export default function Gallery({ search }: Props) {
                     </div>
                     <h3 className="text-black font-medium">{data.name}</h3>
                 </div>  :
-                data.results.length > 0 ? (
-                <MyMasonry results={data.results} limit={data.results.length} />
+                data.images.length > 0 ? (
+                <MyMasonry results={data.images} limit={data.images.length} />
             ) : (
               <div className="w-full h-[50vh] flex justify-center pt-14">
                 Nessun risultato trovato

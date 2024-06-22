@@ -37,10 +37,11 @@ export default function MyDialog({
   limit,
   idx,
 }: Props) {
-  const [like, setLike] = useState(5);
+  const [like, setLike] = useState(imageData.likes);
   const [imageDimensions, setImageDimensions] = useState({});
 
   return (
+    console.log(imageData),
     <>
       <Transition appear show={isOpen}>
         <Dialog
@@ -109,7 +110,7 @@ export default function MyDialog({
                       <div className="text-base/7 font-medium text-white h-full overflow-hidden mb-8">
                         <div className={`min-h-[300px] p-4 select-none`}>
                           <img
-                            src={imageData.image}
+                            src={imageData.url}
                             alt="photo"
                             className="max-h-[75vh] max-w-auto"
                           />
@@ -141,28 +142,32 @@ export default function MyDialog({
                                 Persone presenti:
                               </span>
                               <div className="flex gap-2 flex-wrap text-base font-medium">
-                                <span className="text-[#81B4AF]">
-                                  Mario Rossi
-                                </span>
-                                <span>-</span>
-                                <span className="text-[#81B4AF]">
-                                 Giuseppe Verdi
-                                </span>
-                                <span>-</span>
-                                <span className="text-[#81B4AF]">
-                                  Mario Bianchi
-                                </span>
-                                <span>-</span>
-                                <span className="text-[#81B4AF]">
-                                  Giorgio Rossi
-                                </span>
+                                {imageData.people.map((person, index) => (
+                                  <>
+                                  <span
+                                    key={index}
+                                    className="text-[#81B4AF]"
+                                  >
+                                    {person.name}
+                                  </span>
+                                  </>
+                                ))}
+
                               </div>
                             </div>
                           </div>
 
                           <div className="pt-8">
                             <div className="flex flex-wrap gap-2">
-                              <button className="rounded-[4px] bg-[#d5d5d5] text-[#646464] p-2">
+                              {imageData.tags.map((tag, index) => (
+                                <button
+                                  key={index}
+                                  className="rounded-[4px] bg-[#d5d5d5] text-[#646464] p-2"
+                                >
+                                  {tag.name}
+                                </button>
+                              ))}
+                              {/* <button className="rounded-[4px] bg-[#d5d5d5] text-[#646464] p-2">
                                 Parola chiave
                               </button>
                               <button className="rounded-[4px] bg-[#d4d4d4] text-[#606060] p-2">
@@ -170,7 +175,7 @@ export default function MyDialog({
                               </button>
                               <button className="rounded-[4px] bg-[#d4d4d4] text-[#606060] p-2">
                                 Parola chiave
-                              </button>
+                              </button> */}
                             </div>
                           </div>
                         </div>

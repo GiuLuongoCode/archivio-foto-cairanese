@@ -54,7 +54,7 @@ export default function MyMasonry({results, limit}: {
                                 setOpen(true)
                             }}
                             className="hover:cursor-zoom-in" 
-                            src={char.image} alt={char.name} key={index} />
+                            src={char.url} alt={char.name} key={index} />
                             
                         
                     ))
