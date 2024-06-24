@@ -91,6 +91,7 @@ export default function Gallery({ search }: Props) {
     }
     `
 
+    
  
     const SEARCH_RICKMORTY_FILTERED = gql`
     query searchRM($name: String) {
@@ -193,6 +194,9 @@ export default function Gallery({ search }: Props) {
       <div className="w-full justify-center">
         {loading && <BeatLoader color="#353535" /> }
         {error && <p>Errore: {error}</p>}
+        {
+          data && console.log(data)
+        }
         
         {data && (
           <div>
@@ -209,7 +213,7 @@ export default function Gallery({ search }: Props) {
                     <h3 className="text-black font-medium">{data.name}</h3>
                 </div>  :
                 data.images.length > 0 ? (
-                <MyMasonry results={data.images} limit={data.images.length} />
+                <MyMasonry results={data.images} limit={data.images.length} searchKey={search !== undefined ? search : ''} />
             ) : (
               <div className="w-full h-[50vh] flex justify-center pt-14">
                 Nessun risultato trovato

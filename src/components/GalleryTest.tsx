@@ -25,7 +25,7 @@ export default function GalleryTest({ search }: Props) {
         {photos && (
           <div>
             {
-              <MyMasonry results={photos} limit={photos.length} />
+              <MyMasonry results={photos} limit={photos.length} searchKey="" />
             }    
           </div>
         )}

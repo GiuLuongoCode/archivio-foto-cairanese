@@ -8,8 +8,8 @@ export default function Home() {
     <div className="flex flex-col p-7">
       <MainCard />
       <Searchbar />
-      <Gallery />
-      {/* <GalleryTest /> */}
+      {/* <Gallery /> */}
+      <GalleryTest /> 
     </div>
   );
 }

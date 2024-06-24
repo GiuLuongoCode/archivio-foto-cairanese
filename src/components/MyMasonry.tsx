@@ -1,13 +1,15 @@
 'use client'
 
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
-import { photos } from "./photos"
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
+
 import { useEffect, useState } from "react"
 import MyDialog from "./MyDialog"
 
-export default function MyMasonry({results, limit}: {
+export default function MyMasonry({results, limit, searchKey}: {
     results: any,
-    limit: number
+    limit: number,
+    searchKey: string
+
 }) {
 
     const [open, setOpen] = useState(false)
@@ -36,7 +38,7 @@ export default function MyMasonry({results, limit}: {
         } else {
           document.body.classList.remove('overflow-hidden');
         }
-      }, [open]);
+    }, [open]);
 
     return(
         <div className="flex">
@@ -70,6 +72,7 @@ export default function MyMasonry({results, limit}: {
                 closeModal={closeDialog} 
                 prevImage={prevImage}
                 nextImage={nextImage}
+                searchKey={searchKey}
             /> 
         }
         </div>
